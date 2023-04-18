@@ -16,6 +16,8 @@
 #include "dunedaqdal/DaqModule.hpp"
 #include "cpuburner/CpuBurnerModule.hpp"
 
+#include "coremanager/CoreManager.hpp"
+
 #include "CPUBurner.hpp"
 
 #include <string>
@@ -51,6 +53,8 @@ CPUBurner::init(const dunedaq::dal::DaqModule* modconf) {
   m_burnTime = conf->get_burn_time_us();
   m_sleepTime = conf->get_sleep_time_us();
   m_memSize = conf->get_mem_size();
+  m_reserveCores=conf->get_reserved_cores();
+  coremanager::CoreManager::get()->allocate(get_name(), m_reserveCores);
 }
 
 void
@@ -74,6 +78,15 @@ CPUBurner::do_stop(const nlohmann::json& /*args*/)
 
 void
 CPUBurner::do_work(std::atomic<bool>& running) {
+  TLOG() << "Setting name " << get_name() << " for thread " << pthread_self();
+  int stat=pthread_setname_np(pthread_self(),get_name().c_str());
+  if (stat !=0) {
+    perror("setting thread name");
+  }
+  coremanager::CoreManager::get()->setAffinity(get_name());
+  coremanager::CoreManager::get()->dump();
+  TLOG() << get_name() << ": " << coremanager::CoreManager::get()->affinityString();
+
   auto interval = std::chrono::duration(std::chrono::microseconds(m_burnTime));
   auto mem=std::vector<float>(m_memSize,1.0);
   while (running) {

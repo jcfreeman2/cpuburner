@@ -48,6 +48,7 @@ private:
   uint32_t m_burnTime;
   uint32_t m_sleepTime;
   uint32_t m_memSize;
+  uint32_t m_reserveCores;
 };
 
 } // namespace dunedaq::cpuburner
