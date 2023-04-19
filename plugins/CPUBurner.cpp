@@ -61,7 +61,7 @@ void
 CPUBurner::do_start(const nlohmann::json& /*args*/)
 {
   TLOG_DEBUG(TLVL_ENTER_EXIT_METHODS) << get_name() << ": Entering do_start() method";
-  thread_.start_working_thread();
+  thread_.start_working_thread(get_name());
   TLOG() << get_name() << " successfully started";
   TLOG_DEBUG(TLVL_ENTER_EXIT_METHODS) << get_name() << ": Exiting do_start() method";
 }
@@ -78,11 +78,6 @@ CPUBurner::do_stop(const nlohmann::json& /*args*/)
 
 void
 CPUBurner::do_work(std::atomic<bool>& running) {
-  TLOG() << "Setting name " << get_name() << " for thread " << pthread_self();
-  int stat=pthread_setname_np(pthread_self(),get_name().c_str());
-  if (stat !=0) {
-    perror("setting thread name");
-  }
   coremanager::CoreManager::get()->setAffinity(get_name());
   coremanager::CoreManager::get()->dump();
   TLOG() << get_name() << ": " << coremanager::CoreManager::get()->affinityString();
