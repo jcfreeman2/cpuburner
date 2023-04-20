@@ -54,7 +54,11 @@ CPUBurner::init(const dunedaq::dal::DaqModule* modconf) {
   m_sleepTime = conf->get_sleep_time_us();
   m_memSize = conf->get_mem_size();
   m_reserveCores=conf->get_reserved_cores();
-  coremanager::CoreManager::get()->allocate(get_name(), m_reserveCores);
+  if (m_reserveCores != 0) {
+    auto node = conf->get_numa_node();
+    std::cout << "module " << get_name() << ": node=" << node << std::endl;
+    coremanager::CoreManager::get()->allocate(get_name(), node);
+  }
 }
 
 void
