@@ -63,7 +63,7 @@
 
 <oks-data>
 
-<info name="" type="" num-of-items="9" oks-format="data" oks-version="862f2957270" created-by="gjc" created-on="thinkpad" creation-time="20230320T153246" last-modified-by="gjc" last-modified-on="thinkpad" last-modification-time="20230418T102619"/>
+<info name="" type="" num-of-items="20" oks-format="data" oks-version="862f2957270" created-by="gjc" created-on="thinkpad" creation-time="20230320T153246" last-modified-by="gjc" last-modified-on="thinkpad" last-modification-time="20230426T080527"/>
 
 <include>
  <file path="schema/dunedaqdal/dunedaq.schema.xml"/>
@@ -72,23 +72,43 @@
 
 <comments>
  <comment creation-time="20230320T153410" created-by="gjc" created-on="thinkpad" author="Unknown" text="New session file"/>
+ <comment creation-time="20230425T112437" created-by="gjc" created-on="thinkpad" author="gjc" text="j"/>
+ <comment creation-time="20230425T113319" created-by="gjc" created-on="thinkpad" author="gjc" text="a"/>
+ <comment creation-time="20230425T142029" created-by="gjc" created-on="thinkpad" author="gjc" text=";"/>
+ <comment creation-time="20230425T150955" created-by="gjc" created-on="thinkpad" author="gjc" text="a"/>
+ <comment creation-time="20230425T152618" created-by="gjc" created-on="thinkpad" author="gjc" text="a"/>
+ <comment creation-time="20230425T152859" created-by="gjc" created-on="thinkpad" author="gjc" text="h"/>
+ <comment creation-time="20230425T153540" created-by="gjc" created-on="thinkpad" author="gjc" text="\"/>
+ <comment creation-time="20230425T154019" created-by="gjc" created-on="thinkpad" author="gjc" text="l"/>
+ <comment creation-time="20230426T080300" created-by="gjc" created-on="thinkpad" author="gjc" text="g"/>
+ <comment creation-time="20230426T080527" created-by="gjc" created-on="thinkpad" author="gjc" text="l"/>
 </comments>
 
 
 <obj class="CpuBurnerModule" id="burner-1">
  <attr name="plugin" type="string" val="CPUBurner"/>
- <attr name="reserved_cores" type="u8" val="1"/>
  <attr name="burn_time_us" type="u32" val="75000"/>
  <attr name="sleep_time_us" type="u32" val="25000"/>
  <attr name="mem_size" type="u32" val="1000000"/>
+ <rel name="used_resources">
+  <ref class="ProcessingResource" id="numa0-localhost"/>
+ </rel>
+ <rel name="used_cpu">
+  <ref class="ProcessingResourceClaim" id="burnerModule1Cpu"/>
+ </rel>
 </obj>
 
 <obj class="CpuBurnerModule" id="burner-2">
  <attr name="plugin" type="string" val="CPUBurner"/>
- <attr name="reserved_cores" type="u8" val="1"/>
  <attr name="burn_time_us" type="u32" val="75000"/>
  <attr name="sleep_time_us" type="u32" val="25000"/>
  <attr name="mem_size" type="u32" val="1000000"/>
+ <rel name="used_resources">
+  <ref class="ProcessingResource" id="numa1-localhost"/>
+ </rel>
+ <rel name="used_cpu">
+  <ref class="ProcessingResourceClaim" id="burnerModule1Cpu"/>
+ </rel>
 </obj>
 
 <obj class="CpuBurnerModule" id="burner-3">
@@ -105,9 +125,39 @@
  <attr name="mem_size" type="u32" val="1000000"/>
 </obj>
 
+<obj class="CpuBurnerModule" id="burner2-module1">
+ <attr name="plugin" type="string" val="CPUBurner"/>
+ <attr name="burn_time_us" type="u32" val="50000"/>
+ <attr name="sleep_time_us" type="u32" val="50000"/>
+ <attr name="mem_size" type="u32" val="1000"/>
+ <rel name="used_cpu">
+  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
+ </rel>
+</obj>
+
+<obj class="CpuBurnerModule" id="burner2-module2">
+ <attr name="plugin" type="string" val="CPUBurner"/>
+ <attr name="burn_time_us" type="u32" val="50000"/>
+ <attr name="sleep_time_us" type="u32" val="50000"/>
+ <attr name="mem_size" type="u32" val="1000"/>
+ <rel name="used_cpu">
+  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
+ </rel>
+</obj>
+
+<obj class="CpuBurnerModule" id="burner2-module3">
+ <attr name="plugin" type="string" val="CPUBurner"/>
+ <attr name="burn_time_us" type="u32" val="50000"/>
+ <attr name="sleep_time_us" type="u32" val="50000"/>
+ <attr name="mem_size" type="u32" val="1000"/>
+ <rel name="used_cpu">
+  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
+ </rel>
+</obj>
+
 <obj class="DaqApplication" id="burner-1">
  <attr name="port" type="u16" val="3000"/>
- <rel name="host" class="Host" id="localhost"/>
+ <rel name="host" class="VirtualHost" id="burner-1-host"/>
  <rel name="modules">
   <ref class="CpuBurnerModule" id="burner-1"/>
   <ref class="CpuBurnerModule" id="burner-2"/>
@@ -116,12 +166,13 @@
  </rel>
 </obj>
 
-<obj class="Host" id="localhost">
- <rel name="network">
-  <ref class="NetworkInterface" id="ln0"/>
- </rel>
- <rel name="numa_nodes">
-  <ref class="NumaNode" id="numa0"/>
+<obj class="DaqApplication" id="burner-2">
+ <attr name="port" type="u16" val="3333"/>
+ <rel name="host" class="VirtualHost" id="burner2-host"/>
+ <rel name="modules">
+  <ref class="CpuBurnerModule" id="burner2-module1"/>
+  <ref class="CpuBurnerModule" id="burner2-module2"/>
+  <ref class="CpuBurnerModule" id="burner2-module3"/>
  </rel>
 </obj>
 
@@ -131,10 +182,57 @@
   <data val="255.255.255.0"/>
  </attr>
  <attr name="speed" type="u16" val="1"/>
+ <attr name="name" type="enum" val="Control"/>
 </obj>
 
-<obj class="NumaNode" id="numa0">
- <attr name="cpu_cores" type="string" val="1-3"/>
+<obj class="ProcessingResource" id="burner2-cores">
+ <attr name="physical_host_name" type="string" val="np04-srv-016"/>
+ <attr name="cpu_cores" type="u16">
+  <data val="0"/>
+  <data val="2"/>
+  <data val="4"/>
+  <data val="6"/>
+  <data val="8"/>
+ </attr>
+</obj>
+
+<obj class="ProcessingResource" id="burner3-cores">
+ <attr name="physical_host_name" type="string" val="np04-srv-016"/>
+ <attr name="cpu_cores" type="u16">
+  <data val="1"/>
+  <data val="3"/>
+  <data val="5"/>
+  <data val="7"/>
+  <data val="9"/>
+ </attr>
+ <attr name="numa_id" type="u8" val="1"/>
+</obj>
+
+<obj class="ProcessingResource" id="numa0-localhost">
+ <attr name="physical_host_name" type="string" val="localhost"/>
+ <attr name="cpu_cores" type="u16">
+  <data val="1"/>
+  <data val="0"/>
+ </attr>
+</obj>
+
+<obj class="ProcessingResource" id="numa1-localhost">
+ <attr name="physical_host_name" type="string" val="localhost"/>
+ <attr name="cpu_cores" type="u16">
+  <data val="2"/>
+  <data val="3"/>
+ </attr>
+ <attr name="numa_id" type="u8" val="1"/>
+</obj>
+
+<obj class="ProcessingResourceClaim" id="burner2-cpu">
+ <attr name="count" type="u8" val="1"/>
+ <rel name="processor" class="ProcessingResource" id="burner2-cores"/>
+</obj>
+
+<obj class="ProcessingResourceClaim" id="burnerModule1Cpu">
+ <attr name="count" type="u8" val="1"/>
+ <rel name="processor" class="ProcessingResource" id="numa0-localhost"/>
 </obj>
 
 <obj class="Session" id="burner-session">
@@ -143,6 +241,28 @@
  <attr name="connectivity_service_interval_ms" type="u32" val="1"/>
  <rel name="applications">
   <ref class="DaqApplication" id="burner-1"/>
+ </rel>
+</obj>
+
+<obj class="VirtualHost" id="burner-1-host">
+ <attr name="physical_host_name" type="string" val="localhost"/>
+ <rel name="hw_resources">
+  <ref class="ProcessingResource" id="numa1-localhost"/>
+  <ref class="ProcessingResource" id="numa0-localhost"/>
+ </rel>
+</obj>
+
+<obj class="VirtualHost" id="burner2-host">
+ <attr name="physical_host_name" type="string" val="np04-srv-016"/>
+ <rel name="hw_resources">
+  <ref class="ProcessingResource" id="burner2-cores"/>
+ </rel>
+</obj>
+
+<obj class="VirtualHost" id="burner3-host">
+ <attr name="physical_host_name" type="string" val="np04-srv-016"/>
+ <rel name="hw_resources">
+  <ref class="ProcessingResource" id="burner3-cores"/>
  </rel>
 </obj>
 
