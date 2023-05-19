@@ -14,8 +14,8 @@
 #include "cpuburner/cpuburnerinfo/InfoNljs.hpp"
 
 #include "dunedaqdal/DaqModule.hpp"
+#include "dunedaqdal/HostResource.hpp"
 #include "dunedaqdal/ProcessingResource.hpp"
-#include "dunedaqdal/ProcessingResourceClaim.hpp"
 
 #include "cpuburner/CpuBurnerModule.hpp"
 
@@ -56,13 +56,13 @@ CPUBurner::init(const dunedaq::dal::DaqModule* modconf) {
   m_burnTime = conf->get_burn_time_us();
   m_sleepTime = conf->get_sleep_time_us();
   m_memSize = conf->get_mem_size();
-  auto claim = conf->get_used_cpu();
-  if (claim.size() > 0) {
-    m_reserveCores = claim[0]->get_count();
-    if (m_reserveCores != 0) {
-      auto node = claim[0]->get_processor()->get_numa_id();
-      std::cout << "module " << get_name() << ": node=" << node << std::endl;
+  
+  for (auto resource : conf->get_used_resources()) {
+    auto proc = resource->cast<dunedaq::dal::ProcessingResource>();
+    if (proc) {
+      auto node = proc->get_numa_id();
       coremanager::CoreManager::get()->allocate(get_name(), node);
+      break;
     }
   }
 }
