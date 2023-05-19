@@ -63,7 +63,7 @@
 
 <oks-data>
 
-<info name="" type="" num-of-items="20" oks-format="data" oks-version="862f2957270" created-by="gjc" created-on="thinkpad" creation-time="20230320T153246" last-modified-by="gjc" last-modified-on="thinkpad" last-modification-time="20230426T080527"/>
+<info name="" type="" num-of-items="29" oks-format="data" oks-version="862f2957270" created-by="gjc" created-on="thinkpad" creation-time="20230320T153246" last-modified-by="gjc" last-modified-on="thinkpad" last-modification-time="20230518T151928"/>
 
 <include>
  <file path="schema/dunedaqdal/dunedaq.schema.xml"/>
@@ -82,10 +82,31 @@
  <comment creation-time="20230425T154019" created-by="gjc" created-on="thinkpad" author="gjc" text="l"/>
  <comment creation-time="20230426T080300" created-by="gjc" created-on="thinkpad" author="gjc" text="g"/>
  <comment creation-time="20230426T080527" created-by="gjc" created-on="thinkpad" author="gjc" text="l"/>
+ <comment creation-time="20230426T110615" created-by="gjc" created-on="thinkpad" author="gjc" text="zz"/>
+ <comment creation-time="20230426T110906" created-by="gjc" created-on="thinkpad" author="gjc" text="c"/>
+ <comment creation-time="20230426T111138" created-by="gjc" created-on="thinkpad" author="gjc" text="v"/>
+ <comment creation-time="20230504T105720" created-by="gjc" created-on="thinkpad" author="gjc" text="d"/>
+ <comment creation-time="20230504T105916" created-by="gjc" created-on="thinkpad" author="gjc" text="a"/>
+ <comment creation-time="20230504T112826" created-by="gjc" created-on="thinkpad" author="gjc" text="d"/>
+ <comment creation-time="20230504T134913" created-by="gjc" created-on="thinkpad" author="gjc" text="&apos;"/>
+ <comment creation-time="20230504T135614" created-by="gjc" created-on="thinkpad" author="gjc" text="z"/>
+ <comment creation-time="20230509T084456" created-by="gjc" created-on="thinkpad" author="gjc" text="aa"/>
+ <comment creation-time="20230509T094304" created-by="gjc" created-on="thinkpad" author="gjc" text="&apos;&apos;"/>
+ <comment creation-time="20230509T103251" created-by="gjc" created-on="thinkpad" author="gjc" text="zz"/>
+ <comment creation-time="20230509T103319" created-by="gjc" created-on="thinkpad" author="gjc" text=";"/>
+ <comment creation-time="20230510T110742" created-by="gjc" created-on="thinkpad" author="gjc" text="kk"/>
+ <comment creation-time="20230510T111127" created-by="gjc" created-on="thinkpad" author="gjc" text=";"/>
+ <comment creation-time="20230510T132225" created-by="gjc" created-on="thinkpad" author="gjc" text="x"/>
+ <comment creation-time="20230511T152621" created-by="gjc" created-on="thinkpad" author="gjc" text="t"/>
+ <comment creation-time="20230512T085327" created-by="gjc" created-on="thinkpad" author="gjc" text="i"/>
+ <comment creation-time="20230518T135045" created-by="gjc" created-on="thinkpad" author="gjc" text="a"/>
+ <comment creation-time="20230518T135545" created-by="gjc" created-on="thinkpad" author="gjc" text="xx"/>
+ <comment creation-time="20230518T151723" created-by="gjc" created-on="thinkpad" author="gjc" text="vv"/>
+ <comment creation-time="20230518T151928" created-by="gjc" created-on="thinkpad" author="gjc" text="ii"/>
 </comments>
 
 
-<obj class="CpuBurnerModule" id="burner-1">
+<obj class="CpuBurnerModule" id="burnMod-1">
  <attr name="plugin" type="string" val="CPUBurner"/>
  <attr name="burn_time_us" type="u32" val="75000"/>
  <attr name="sleep_time_us" type="u32" val="25000"/>
@@ -93,12 +114,9 @@
  <rel name="used_resources">
   <ref class="ProcessingResource" id="numa0-localhost"/>
  </rel>
- <rel name="used_cpu">
-  <ref class="ProcessingResourceClaim" id="burnerModule1Cpu"/>
- </rel>
 </obj>
 
-<obj class="CpuBurnerModule" id="burner-2">
+<obj class="CpuBurnerModule" id="burnMod-2">
  <attr name="plugin" type="string" val="CPUBurner"/>
  <attr name="burn_time_us" type="u32" val="75000"/>
  <attr name="sleep_time_us" type="u32" val="25000"/>
@@ -106,19 +124,19 @@
  <rel name="used_resources">
   <ref class="ProcessingResource" id="numa1-localhost"/>
  </rel>
- <rel name="used_cpu">
-  <ref class="ProcessingResourceClaim" id="burnerModule1Cpu"/>
- </rel>
 </obj>
 
-<obj class="CpuBurnerModule" id="burner-3">
+<obj class="CpuBurnerModule" id="burnMod-3">
  <attr name="plugin" type="string" val="CPUBurner"/>
  <attr name="burn_time_us" type="u32" val="50000"/>
  <attr name="sleep_time_us" type="u32" val="50000"/>
  <attr name="mem_size" type="u32" val="1000000"/>
+ <rel name="used_resources">
+  <ref class="ProcessingResource" id="numa1-localhost"/>
+ </rel>
 </obj>
 
-<obj class="CpuBurnerModule" id="burner-4">
+<obj class="CpuBurnerModule" id="burnMod-4">
  <attr name="plugin" type="string" val="CPUBurner"/>
  <attr name="burn_time_us" type="u32" val="50000"/>
  <attr name="sleep_time_us" type="u32" val="50000"/>
@@ -130,9 +148,6 @@
  <attr name="burn_time_us" type="u32" val="50000"/>
  <attr name="sleep_time_us" type="u32" val="50000"/>
  <attr name="mem_size" type="u32" val="1000"/>
- <rel name="used_cpu">
-  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
- </rel>
 </obj>
 
 <obj class="CpuBurnerModule" id="burner2-module2">
@@ -140,9 +155,6 @@
  <attr name="burn_time_us" type="u32" val="50000"/>
  <attr name="sleep_time_us" type="u32" val="50000"/>
  <attr name="mem_size" type="u32" val="1000"/>
- <rel name="used_cpu">
-  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
- </rel>
 </obj>
 
 <obj class="CpuBurnerModule" id="burner2-module3">
@@ -150,26 +162,28 @@
  <attr name="burn_time_us" type="u32" val="50000"/>
  <attr name="sleep_time_us" type="u32" val="50000"/>
  <attr name="mem_size" type="u32" val="1000"/>
- <rel name="used_cpu">
-  <ref class="ProcessingResourceClaim" id="burner2-cpu"/>
- </rel>
 </obj>
 
 <obj class="DaqApplication" id="burner-1">
  <attr name="port" type="u16" val="3000"/>
+ <attr name="application_name" type="string" val="daq_application"/>
+ <rel name="applicationEnvironment">
+  <ref class="Variable" id="moreDebug"/>
+ </rel>
  <rel name="host" class="VirtualHost" id="burner-1-host"/>
- <rel name="modules">
-  <ref class="CpuBurnerModule" id="burner-1"/>
-  <ref class="CpuBurnerModule" id="burner-2"/>
-  <ref class="CpuBurnerModule" id="burner-3"/>
-  <ref class="CpuBurnerModule" id="burner-4"/>
+ <rel name="contains">
+  <ref class="CpuBurnerModule" id="burnMod-1"/>
+  <ref class="CpuBurnerModule" id="burnMod-2"/>
+  <ref class="CpuBurnerModule" id="burnMod-3"/>
+  <ref class="CpuBurnerModule" id="burnMod-4"/>
  </rel>
 </obj>
 
 <obj class="DaqApplication" id="burner-2">
  <attr name="port" type="u16" val="3333"/>
+ <attr name="application_name" type="string" val="daq_application"/>
  <rel name="host" class="VirtualHost" id="burner2-host"/>
- <rel name="modules">
+ <rel name="contains">
   <ref class="CpuBurnerModule" id="burner2-module1"/>
   <ref class="CpuBurnerModule" id="burner2-module2"/>
   <ref class="CpuBurnerModule" id="burner2-module3"/>
@@ -186,7 +200,6 @@
 </obj>
 
 <obj class="ProcessingResource" id="burner2-cores">
- <attr name="physical_host_name" type="string" val="np04-srv-016"/>
  <attr name="cpu_cores" type="u16">
   <data val="0"/>
   <data val="2"/>
@@ -197,7 +210,7 @@
 </obj>
 
 <obj class="ProcessingResource" id="burner3-cores">
- <attr name="physical_host_name" type="string" val="np04-srv-016"/>
+ <attr name="numa_id" type="u8" val="1"/>
  <attr name="cpu_cores" type="u16">
   <data val="1"/>
   <data val="3"/>
@@ -205,11 +218,9 @@
   <data val="7"/>
   <data val="9"/>
  </attr>
- <attr name="numa_id" type="u8" val="1"/>
 </obj>
 
 <obj class="ProcessingResource" id="numa0-localhost">
- <attr name="physical_host_name" type="string" val="localhost"/>
  <attr name="cpu_cores" type="u16">
   <data val="1"/>
   <data val="0"/>
@@ -217,30 +228,100 @@
 </obj>
 
 <obj class="ProcessingResource" id="numa1-localhost">
- <attr name="physical_host_name" type="string" val="localhost"/>
+ <attr name="numa_id" type="u8" val="1"/>
  <attr name="cpu_cores" type="u16">
   <data val="2"/>
   <data val="3"/>
  </attr>
- <attr name="numa_id" type="u8" val="1"/>
 </obj>
 
-<obj class="ProcessingResourceClaim" id="burner2-cpu">
- <attr name="count" type="u8" val="1"/>
- <rel name="processor" class="ProcessingResource" id="burner2-cores"/>
+<obj class="RCApplication" id="burn-controller-1">
+ <attr name="application_name" type="string" val="run_controller"/>
+ <attr name="timeout" type="u16" val="20"/>
+ <rel name="host" class="VirtualHost" id="burner-1-host"/>
 </obj>
 
-<obj class="ProcessingResourceClaim" id="burnerModule1Cpu">
- <attr name="count" type="u8" val="1"/>
- <rel name="processor" class="ProcessingResource" id="numa0-localhost"/>
+<obj class="ResourceSetOR" id="bmods">
+ <rel name="contains">
+  <ref class="CpuBurnerModule" id="burnMod-2"/>
+  <ref class="CpuBurnerModule" id="burnMod-3"/>
+ </rel>
+</obj>
+
+<obj class="Segment" id="burnerSegment">
+ <rel name="applications">
+  <ref class="DaqApplication" id="burner-1"/>
+ </rel>
+ <rel name="resources">
+  <ref class="ResourceSetOR" id="bmods"/>
+ </rel>
+ <rel name="controller" class="RCApplication" id="burn-controller-1"/>
+</obj>
+
+<obj class="Segment" id="burnerSegmet-2">
+ <rel name="applications">
+  <ref class="DaqApplication" id="burner-2"/>
+ </rel>
 </obj>
 
 <obj class="Session" id="burner-session">
- <attr name="Description" type="string" val="dummy"/>
  <attr name="use_connectivity_server" type="bool" val="0"/>
  <attr name="connectivity_service_interval_ms" type="u32" val="1"/>
- <rel name="applications">
-  <ref class="DaqApplication" id="burner-1"/>
+ <rel name="environment">
+  <ref class="VariableSet" id="ERSenvironment"/>
+ </rel>
+ <rel name="disabled">
+  <ref class="CpuBurnerModule" id="burnMod-2"/>
+ </rel>
+ <rel name="segments">
+  <ref class="Segment" id="burnerSegment"/>
+  <ref class="Segment" id="burnerSegmet-2"/>
+ </rel>
+</obj>
+
+<obj class="Variable" id="ERS_DEBUG_LEVEL">
+ <attr name="name" type="string" val="DUNEDAQ_ERS_DEBUG_LEVEL"/>
+ <attr name="value" type="string" val="0"/>
+</obj>
+
+<obj class="Variable" id="ERS_ERROR">
+ <attr name="description" type="string" val="Destination filters for ERS error issues"/>
+ <attr name="name" type="string" val="DUNEDAQ_ERS_ERROR"/>
+ <attr name="value" type="string" val="erstrace,throttle,lstdout"/>
+</obj>
+
+<obj class="Variable" id="ERS_FATAL">
+ <attr name="description" type="string" val="Destination filters for ERS fatal issues"/>
+ <attr name="name" type="string" val="DUNEDAQ_ERS_FATAL"/>
+ <attr name="value" type="string" val="erstrace,lstdout"/>
+</obj>
+
+<obj class="Variable" id="ERS_INFO">
+ <attr name="description" type="string" val="Destination filters for ERS info issues"/>
+ <attr name="name" type="string" val="DUNEDAQ_ERS_INFO"/>
+ <attr name="value" type="string" val="erstrace,throttle,lstdout"/>
+</obj>
+
+<obj class="Variable" id="ERS_WARNING">
+ <attr name="description" type="string" val="Destination filters for ERS warning issues"/>
+ <attr name="name" type="string" val="DUNEDAQ_ERS_WARNING"/>
+ <attr name="value" type="string" val="erstrace,throttle,lstdout"/>
+</obj>
+
+<obj class="Variable" id="moreDebug">
+ <attr name="description" type="string" val="Increased ERS debug level "/>
+ <attr name="name" type="string" val="DUNEDAQ_ERS_DEBUG_LEVEL"/>
+ <attr name="value" type="string" val="9"/>
+</obj>
+
+<obj class="VariableSet" id="ERSenvironment">
+ <attr name="description" type="string" val="ERS related environment variables"/>
+ <rel name="contains">
+  <ref class="Variable" id="ERS_DEBUG_LEVEL"/>
+  <ref class="Variable" id="ERS_ERROR"/>
+  <ref class="Variable" id="ERS_FATAL"/>
+  <ref class="Variable" id="ERS_WARNING"/>
+  <ref class="Variable" id="ERS_INFO"/>
  </rel>
 </obj>
 
