@@ -20,7 +20,9 @@ daq_generate_dal(cpuburner.schema.xml
   INCLUDE_DIRECTORIES ${dunedaqdal_DIR}
   CPP ${CMAKE_CODEGEN_BINARY_DIR}/src
   CPP_OUTPUT  dal_cpp_srcs
-  DUMP_OUTPUT cpp_dump_src)
+  DUMP_OUTPUT cpp_dump_src
+  DEP_PKGS dunedaqdal
+)
 
 daq_add_library(${dal_cpp_srcs} DAL LINK_LIBRARIES dunedaqdal::dunedaqdal oksdbinterfaces::oksdbinterfaces okssystem::okssystem logging::logging)
 
