@@ -19,12 +19,11 @@ daq_generate_dal(cpuburner.schema.xml
   INCLUDE ${CMAKE_CODEGEN_BINARY_DIR}/include/${PROJECT_NAME}
   INCLUDE_DIRECTORIES ${dunedaqdal_DIR}
   CPP ${CMAKE_CODEGEN_BINARY_DIR}/src
-  CPP_OUTPUT  dal_cpp_srcs
   DUMP_OUTPUT cpp_dump_src
   DEP_PKGS dunedaqdal
 )
 
-daq_add_library(${dal_cpp_srcs} DAL LINK_LIBRARIES dunedaqdal::dunedaqdal oksdbinterfaces::oksdbinterfaces okssystem::okssystem logging::logging)
+daq_add_library(DAL LINK_LIBRARIES dunedaqdal::dunedaqdal oksdbinterfaces::oksdbinterfaces okssystem::okssystem logging::logging cpuburner_oks)
 
 daq_codegen(cpuburner.jsonnet TEMPLATES Structs.hpp.j2 Nljs.hpp.j2)
 daq_codegen(cpuburnerinfo.jsonnet DEP_PKGS opmonlib TEMPLATES opmonlib/InfoStructs.hpp.j2 opmonlib/InfoNljs.hpp.j2)
