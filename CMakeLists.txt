@@ -16,9 +16,7 @@ find_package(dunedaqdal REQUIRED)
 
 daq_generate_dal(cpuburner.schema.xml
   NAMESPACE dunedaq::dal
-  INCLUDE ${CMAKE_CODEGEN_BINARY_DIR}/include/${PROJECT_NAME}
   INCLUDE_DIRECTORIES ${dunedaqdal_DIR}
-  CPP ${CMAKE_CODEGEN_BINARY_DIR}/src
   DUMP_OUTPUT cpp_dump_src
   DEP_PKGS dunedaqdal
 )
