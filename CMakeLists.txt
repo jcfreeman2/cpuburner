@@ -16,12 +16,11 @@ find_package(dunedaqdal REQUIRED)
 
 daq_generate_dal(cpuburner.schema.xml
   NAMESPACE dunedaq::dal
-  INCLUDE_DIRECTORIES ${dunedaqdal_DIR}
   DUMP_OUTPUT cpp_dump_src
   DEP_PKGS dunedaqdal
 )
 
-daq_add_library(DAL LINK_LIBRARIES dunedaqdal::dunedaqdal oksdbinterfaces::oksdbinterfaces okssystem::okssystem logging::logging cpuburner_oks)
+daq_add_library(LINK_LIBRARIES dunedaqdal::dunedaqdal oksdbinterfaces::oksdbinterfaces okssystem::okssystem logging::logging cpuburner_oks)
 
 daq_codegen(cpuburner.jsonnet TEMPLATES Structs.hpp.j2 Nljs.hpp.j2)
 daq_codegen(cpuburnerinfo.jsonnet DEP_PKGS opmonlib TEMPLATES opmonlib/InfoStructs.hpp.j2 opmonlib/InfoNljs.hpp.j2)
